@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center mt-[1000px]  px-4">
+    <main className="min-h-screen flex items-center justify-center  px-4">
       <div className="max-w-2xl w-full space-y-8 text-center">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">EduDraft</h1>
         <h2 className="text-xl text-blue-600 font-medium">

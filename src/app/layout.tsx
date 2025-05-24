@@ -3,6 +3,7 @@ import { Roboto_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NavBar from "@/components/ui/navbar";
+import { UserSessionProvider } from "@/components/ui/user-session-provider";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -35,8 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          {children}
+          <UserSessionProvider>
+            <NavBar />
+            <main className="mt-[50px]">
+              {children}
+            </main>
+          </UserSessionProvider>
         </ThemeProvider>
       </body>
     </html>
