@@ -15,16 +15,47 @@ datasource db {
 }
 
 enum AuthType {
-  Google
-  Github
+  google
+  github
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String
   name      String
   authType  AuthType
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
 }
 
+enum ProjectStatus {
+  published
+  draft
+}
+
+model Project {
+  id          String        @id @default(uuid())
+  title       String
+  institute   String?
+  class       String?
+  subject     String?
+  total_marks Int
+  status      ProjectStatus
+  version     String?
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+}
+
+model Question {
+  id         String   @id @default(uuid())
+  text       String
+  marks      Int
+  chapter    String?
+  difficulty String?
+  type       String?
+  answer     String
+  language   String
+  keywords   String[]
+}

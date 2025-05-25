@@ -2,6 +2,8 @@
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
 import { NextAuthOptions } from "next-auth"
+import { checkIsRegistered } from "@/actions/check-is-registered"
+import { registerUser } from "@/actions/register-user"
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,4 +22,20 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+  callbacks: {
+    async signIn({ user, account }) {
+      try {
+        const provider = account?.provider! as "google" | "github"
+        const isRegistered = await checkIsRegistered({ email: user.email!, provider: provider! });
+        if (isRegistered) {
+          return true;
+        } else {
+          await registerUser({email: user.email!, image: user.image!, name: user.name!, provider});
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
+  }
 }
