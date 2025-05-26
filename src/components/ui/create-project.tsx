@@ -54,6 +54,7 @@ export default function CreateProject({ className }: {
                     <div className="mt-5">
                         <form onSubmit={async (e) => {
                             e.preventDefault()
+                            //@ts-ignore
                             await createProject({ email: data?.user?.email!, provider: data?.user?.provider! as "github" | "google", title: inputRef.current?.value as string })
                             setOpen(false)
                         }} className="flex flex-col gap-2">

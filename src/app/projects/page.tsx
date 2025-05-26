@@ -11,7 +11,8 @@ export default async function DashboardPage() {
         }
         const projects = await fetchProjects({
             email: userSession.user?.email!,
-            authType:  userSession.user?.provider as "google" | "github"
+            //@ts-ignore
+            authType: userSession.user?.provider as "google" | "github"
         })
         console.log(projects)
         return (<>
@@ -19,7 +20,10 @@ export default async function DashboardPage() {
                 <h2 className="font-semibold text-xl p-2">
                     Hello {userSession?.user?.name}!!
                 </h2>
-                <ProjectsView initialProjects={projects} authType={userSession.user?.provider as "google" | "github"} email={userSession.user?.email!}/>
+                <ProjectsView initialProjects={projects} authType={(
+                    //@ts-ignore
+                    userSession.user?.provider as "google" | "github"
+                )} email={userSession.user?.email!} />
             </div>
         </>)
     } catch (err) {
