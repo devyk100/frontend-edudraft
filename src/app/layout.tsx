@@ -4,7 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NavBar from "@/components/ui/navbar";
 import { UserSessionProvider } from "@/components/ui/user-session-provider";
-
+import { Toaster } from "@/components/ui/sonner"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ReactQueryProvider from "@/components/react-query-provider";
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
   subsets: ["latin"],
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
   title: "EduDraft",
   description: "",
 };
+
+const queryClient = new QueryClient()
 
 export default function RootLayout({
   children,
@@ -36,12 +40,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <UserSessionProvider>
-            <NavBar />
-            <main className="mt-[50px]">
-              {children}
-            </main>
-          </UserSessionProvider>
+          <ReactQueryProvider>
+
+            <UserSessionProvider>
+              <NavBar />
+              <main className="mt-[50px]">
+                {children}
+              </main>
+              <Toaster />
+            </UserSessionProvider>
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

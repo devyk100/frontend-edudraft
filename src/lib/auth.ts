@@ -1,9 +1,22 @@
-// lib/auth.ts
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
-import { NextAuthOptions } from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import { checkIsRegistered } from "@/actions/check-is-registered"
 import { registerUser } from "@/actions/register-user"
+
+
+declare module "next-auth" {
+  interface Session {
+    provider?: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    provider?: string;
+  }
+}
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -36,6 +49,13 @@ export const authOptions: NextAuthOptions = {
       } catch (error) {
         return false;
       }
-    }
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        token.provider = account.provider;
+      }
+      return token;
+    },
+
   }
 }

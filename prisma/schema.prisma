@@ -20,15 +20,16 @@ enum AuthType {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String
-  name      String
-  authType  AuthType
-  image     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  authType  String
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   projects  Project[]
 }
+
 
 enum ProjectStatus {
   published
@@ -41,7 +42,7 @@ model Project {
   institute   String?
   class       String?
   subject     String?
-  total_marks Int
+  total_marks Int?
   status      ProjectStatus
   version     String?
   userId      Int

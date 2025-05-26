@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">EduDraft</h1>
         <h2 className="text-xl text-blue-600 font-medium">
           AI-Enhanced Question Paper Generation System
-        </h2>
+        </h2> 
 
         <Card>
           <CardHeader>

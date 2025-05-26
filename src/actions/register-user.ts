@@ -15,8 +15,6 @@ export async function registerUser({ email, image, name, provider }: {
                 email,
                 name, image,
                 authType: provider,
-                createdAt: date,
-                updatedAt: date
             }
         })
         if(user == null) {
